@@ -1,0 +1,26 @@
+import sqlite3
+
+def criar_tabela():
+    conn = sqlite3.connect('imc.db')
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS imc (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL,
+            peso REAL NOT NULL,
+            altura REAL NOT NULL,
+            imc REAL NOT NULL
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+def inserir_dados(nome, peso, altura, imc):
+    conn = sqlite3.connect('imc.db')
+    cursor = conn.cursor()
+    cursor.execute('''
+        INSERT INTO imc (nome, peso, altura, imc)
+        VALUES (?, ?, ?, ?)
+    ''', (nome, peso, altura, imc))
+    conn.commit()
+    conn.close()
